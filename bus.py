@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 21 17:11:43 2023
+
+@author: YONSAI
+"""
+
 # 모듈 import
 import requests
 import pprint
@@ -17,18 +24,9 @@ params ={'serviceKey' : decoding, 'stationId' : station_id }
 response = requests.get(url, params=params)
 
 
-
-
-#%%
-import pprint
-# xml 내용
+# xml 내용넣기
 content = response.text
 
-# 깔끔한 출력 위한 코드
-pp = pprint.PrettyPrinter(indent=4)
-#print(pp.pprint(content))
-
-#%%
 
 ### xml을 DataFrame으로 변환하기 ###
 from os import name
@@ -39,35 +37,12 @@ from lxml import html
 from urllib.parse import urlencode, quote_plus, unquote
 
 
-#bs4 사용하여 item 태그 분리
+#bs4 사용하여 busArrivalList 태그 분리
 
 xml_obj = bs4.BeautifulSoup(content,'lxml-xml')
 rows = xml_obj.findAll('busArrivalList')
-print(rows)
 
-#%%
-# 한 개 행의 모든 컬럼값을 리스트에 담아보자.
-columns = rows[0].find_all()
-columns
 
-#%%
-# 태그 불러오기
-columns[0].name
-# 태그안에 내용물 불러오기
-columns[0].text
-
-#%%
-# 반복문으로 만들어보기
-rowList = []
-nameList = []
-columnList = []
-
-for j in range(0, len(columns)):
-    eachColumn = columns[j].text
-    columnList.append(eachColumn)
-rowList.append(columnList)
-
-#%%
 # 모든 행과 열의 값을 모아 dataframe으로 만들기
 
 rowList = []
@@ -81,16 +56,14 @@ for i in range(0, len(rows)):
         # 어차피 동일한 columns을 가지기떄문에 nameList는  한번만 해도됨
         if i == 0:
             nameList.append(columns[j].name)
-        # 컬럼값은 모든 행의 값을 저장해야한다.    
+        # 컬럼값은 모든 행의 값을 저장  
         eachColumn = columns[j].text
         columnList.append(eachColumn)
     rowList.append(columnList)
-    columnList = []    # 다음 row의 값을 넣기 위해 비워준다. 
+    columnList = []    # 다음 row의 값을 넣기 위해 비워야됨 
     
 result = pd.DataFrame(rowList, columns=nameList)
 result.head()
 
-
-#%%
-
+# 원하는 부분만 뺴내기
 final_result = result[['plateNo1','plateNo2','predictTime1','predictTime2']]
