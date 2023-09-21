@@ -3,8 +3,8 @@ import requests
 import pprint
 
 #인증키 입력
-encoding = "MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB%2FM%2BdHc1zFvKBSXkP2RoS9DQQqYUNrbjAQg%3D%3D"
-decoding = 'MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB/M+dHc1zFvKBSXkP2RoS9DQQqYUNrbjAQg=='
+encoding = "%2BltohkyQC0eQUMVVaH5qwUi4FxaROssy0kpwzEdkqsFqedo%2FKlvT05Ap0svSUr2xQsOHd9%2FK2pXWpnH5N%2BmTcg%3D%3D"
+decoding = '+ltohkyQC0eQUMVVaH5qwUi4FxaROssy0kpwzEdkqsFqedo/KlvT05Ap0svSUr2xQsOHd9/K2pXWpnH5N+mTcg=='
 
 # 학원 = "200000093"
 ## 집앞 =  "233000074"
@@ -12,27 +12,13 @@ station_id = "200000093"
 
 #url 입력
 url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList'
-params ={'serviceKey' : encoding, 'stationId' : station_id }
+params ={'serviceKey' : decoding, 'stationId' : station_id }
 
 response = requests.get(url, params=params)
 
 
-#%%
-
-import requests
 
 
-## YS학원 = "200000093"
-## 집앞 =  "233000074"
-
-
-base_url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList'
-servicekey = "MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB%2FM%2BdHc1zFvKBSXkP2RoS9DQQqYUNrbjAQg%3D%3D"
-station_id = "200000093"
-
-url = base_url + "?serviceKey=" + servicekey + "&stationId=" + station_id
-
-response = requests.get(url)
 #%%
 import pprint
 # xml 내용
@@ -71,7 +57,7 @@ columns[0].name
 columns[0].text
 
 #%%
-# 반복문으로 만들어보자
+# 반복문으로 만들어보기
 rowList = []
 nameList = []
 columnList = []
