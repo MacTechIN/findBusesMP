@@ -56,7 +56,6 @@ for i in range(0, len(rows)):
     columns = rows[i].find_all()
     
     for j in range(0, len(columns)):
-        columnList = []
         # 컬럼값은 모든 행의 값을 저장해야한다.    
         eachColumn = columns[j].text
         textList.append(eachColumn)
@@ -70,4 +69,8 @@ result.head()
 
 #%%
 # 원하는 부분만 뺴내기
-final_result = result[['plateNo1','plateNo2','predictTime1','predictTime2', 'routeId']]
+final_result = result[['predictTime1','predictTime2', 'routeId']]
+
+#%%
+# routeId만 뽑기 => type: series
+routeId_result1 = final_result.loc[:, 'routeId']
