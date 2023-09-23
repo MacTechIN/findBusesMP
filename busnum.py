@@ -14,7 +14,7 @@ decoding = "MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB/M+dHc1zFvKBSXkP
  # 암거나 한 넣음
 routeid = "200000315"  
 
-params = {"serviceKey" : decoding, "routeId" : routeid}
+params = {"serviceKey" : de coding, "routeId" : routeid}
 
 response = requests.get(url, params = params)
 

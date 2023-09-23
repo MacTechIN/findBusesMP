@@ -45,6 +45,40 @@ def get_bus_info(routeid):
         print("Failed to connect to API")
 
 
+#%%
+## Sam's Comment 
+## Method (function) sould break down as small pices of functions 
+## For example for get_bus_info() can make like this way 
+
+#%%
+# part 1 functization 
+import requests  
+
+## define and init. global variables  
+url = "http://apis.data.go.kr/6410000/busrouteservice/getBusRouteInfoItem"
+encoding = "MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB%2FM%2BdHc1zFvKBSXkP2RoS9DQQqYUNrbjAQg%3D%3D"
+decoding = "MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB/M+dHc1zFvKBSXkP2RoS9DQQqYUNrbjAQg=="
+#%%
+
+def get_bus_info(route_id):
+	#define parmeter for request 
+	params = {"serviceKey": decoding, "routeId": route_id}
+
+	response = requests.get(url, params= params)
+	
+	# 연결되면 200을 반환함
+	# response.text 해야지 원하는거 나옴 안하면 <Response [200]>뜸
+	if response.status_code == 200:  
+		return response.text
+	else:
+		print("Failed to connect to API")
+		
+		
+#%%
+# Test getBusInformation(route_id)
+
+
+
 
 
 #%%
@@ -61,7 +95,6 @@ def get_bus_num(content):
     else:
         return "Route name not found."
 
-
 #%%
 # 위에 routeId가 담긴 routeId_result를 넣어서 함수적용
 
@@ -75,5 +108,4 @@ for i in range(0, len(routeId_result)):
     busname = get_bus_num(content)
     # list에 추가
     bus_names.append(busname)
-
 
