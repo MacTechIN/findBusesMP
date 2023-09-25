@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response>
+    <comMsgHeader/>
+    <msgHeader>
+        <queryTime>2023-09-23 14:42:01.672</queryTime>
+        <resultCode>0</resultCode>
+        <resultMessage>정상적으로 처리되었습니다.</resultMessage>
+    </msgHeader>
+
+    <msgBody>
+        <busRouteList>
+            <districtCd>2</districtCd>
+            <regionName>수원</regionName>
+            <routeId>200000049</routeId>
+            <routeName>112</routeName>
+            <routeTypeCd>13</routeTypeCd>
+            <routeTypeName>일반형시내버스</routeTypeName>
+
+        </busRouteList>
+
+        <busRouteList>
+            <districtCd>2</districtCd>
+            <regionName>남양주,서울,하남</regionName>
+            <routeId>222000045</routeId>
+            <routeName>112-1</routeName>
+            <routeTypeCd>13</routeTypeCd>
+            <routeTypeName>일반형시내버스</routeTypeName>
+
+        </busRouteList>
+
+        <busRouteList>
+            <districtCd>2</districtCd>
+            <regionName>서울,하남</regionName>
+            <routeId>227000005</routeId>
+            <routeName>112-5</routeName>
+            <routeTypeCd>13</routeTypeCd>
+            <routeTypeName>일반형시내버스</routeTypeName>
+        </busRouteList>
+    </msgBody>
+
+</response>
+
+
+
+<response>
+    <comMsgHeader/>
+    <msgHeader>
+        <queryTime>2023-09-23 17:03:07.205</queryTime>
+        <resultCode>0</resultCode>
+        <resultMessage>정상적으로 처리되었습니다.</resultMessage>
+    </msgHeader>
+    <msgBody>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02204</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000080</stationId>
+            <stationName>수원농협권선지점</stationName>
+            <x>127.01715</x>
+            <y>37.2579333</y>
+            <distance>116</distance>
+        </busStationAroundList>
+        
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02205</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000090</stationId>
+            <stationName>수원농협권선지점</stationName>
+            <x>127.0174167</x>
+            <y>37.25795</y>
+            <distance>160</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02209</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000091</stationId>
+            <stationName>신곡사거리</stationName>
+            <x>127.0181667</x>
+            <y>37.2573</y>
+            <distance>197</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02199</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000075</stationId>
+            <stationName>전원아파트.한라녹턴아파트</stationName>
+            <x>127.0155667</x>
+            <y>37.2544667</y>
+            <distance>318</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02198</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000074</stationId>
+            <stationName>전원아파트.한라녹턴아파트</stationName>
+            <x>127.0153667</x>
+            <y>37.2544</y>
+            <distance>328</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02211</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000081</stationId>
+            <stationName>세류현대아파트</stationName>
+            <x>127.0183667</x>
+            <y>37.26025</y>
+            <distance>382</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02897</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000398</stationId>
+            <stationName>장미아파트.버드내도서관</stationName>
+            <x>127.0117</x>
+            <y>37.2574667</y>
+            <distance>383</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02189</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000114</stationId>
+            <stationName>세류3동주민센터.버드내노인복지회관</stationName>
+            <x>127.0130667</x>
+            <y>37.2600167</y>
+            <distance>411</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02220</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000079</stationId>
+            <stationName>세권사거리</stationName>
+            <x>127.02055</x>
+            <y>37.2564333</y>
+            <distance>417</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02212</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000089</stationId>
+            <stationName>세류현대아파트</stationName>
+            <x>127.0186833</x>
+            <y>37.26035</y>
+            <distance>418</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02896</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000397</stationId>
+            <stationName>세화새마을금고.버드내도서관</stationName>
+            <x>127.0112333</x>
+            <y>37.2571667</y>
+            <distance>424</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02188</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000112</stationId>
+            <stationName>세류3동주민센터.버드내노인복지회관</stationName>
+            <x>127.0128667</x>
+            <y>37.2603</y>
+            <distance>429</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02223</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000092</stationId>
+            <stationName>세권사거리</stationName>
+            <x>127.0211</x>
+            <y>37.2565833</y>
+            <distance>448</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02180</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000342</stationId>
+            <stationName>세류2동주민센터</stationName>
+            <x>127.0111333</x>
+            <y>37.2553</y>
+            <distance>487</distance>
+        </busStationAroundList>
+        <busStationAroundList>
+            <centerYn>N</centerYn>
+            <districtCd>2</districtCd>
+            <mobileNo> 02202</mobileNo>
+            <regionName>수원</regionName>
+            <stationId>201000082</stationId>
+            <stationName>삼익아파트</stationName>
+            <x>127.017</x>
+            <y>37.2617167</y>
+            <distance>496</distance>
+        </busStationAroundList>
+    </msgBody>
+</response>
