@@ -35,7 +35,7 @@ from PIL import Image
 
 import get_gps_location as gl
 
-coord_xy = []
+coord_xy = [37.5073423, 127.0572734]
 kakao_key = "KakaoAK b958bdf89a2ea48dc1e8c2792f0483f7"
 # REST용 url 만들기 
 service_url = "http://apis.data.go.kr/6410000/busstationservice"
@@ -72,16 +72,18 @@ def make_station_list(df):
 def set_coordination(coord):
     x = coord[0]
     y = coord[1]
-    coordination = f"&x={x}&y={y}"
+    coordination: str = f"&x={x}&y={y}"
     return coordination
 
+def station_map (xy):
+    print(xy)
+    map_data = pd.DataFrame( np.random.randn(5, 1) / [20, 20] + xy, columns=['lat', 'lon'])
 
-def station_map ():
-    map_data = pd.DataFrame( coord_xy ,columns=['lat', 'lon'])
     st.code('st.map(map_data)')
-    # 웹사이트에 어떤 코드인지 표시해주기
     st.subheader('정류장 위치입니다.')
     st.map(map_data)
+
+
 
 # App Start from here !!
 
@@ -102,13 +104,15 @@ st.write("### 당신이 입력한 주소는 ", my_add, " 맞죠 ??")
 
 if st.button('### 네, 맞아요!!'):
     st.write("### 당신의 주소에서 반경 200m에 있는 정류장 목록입니다.")
-    xy_arr = gl.getXY_from_json(my_add)
-    serviceKey = set_coordination(xy_arr)
-    final_url = service_url + service_name + auth_key + serviceKey
-    view = find_station_around_me(final_url)
+    coord_xy = gl.getXY_from_json(my_add)
+    serviceKey = set_coordination(coord_xy)
 
+    final_url = service_url + service_name + auth_key + serviceKey
+
+    view = find_station_around_me(final_url)
     view
-    station_map()
+
+    station_map(coord_xy)
 
 else:
     st.write("다시 입력 해주세요.")
@@ -121,11 +125,6 @@ else:
 # 위도 경도 coord_xy [] 에서 가져옴
 # base_position에, 버스 정류장 상위 5개의 좌표를 데이터 프레임 생성 후 임시로 랜덤으로 사용  np.random.randn(5, 1) / [20, 20] + base_position
 # 컬럼명은 위도 :lat  경도 lon
-
-map_data = pd.DataFrame(
-    np.random.randn(5, 1) / [20, 20] + coord_xy ,
-    columns=['lat', 'lon'])
-
 
 # map_data 에 정류소 x,y를 추축한 df 를 생성 저장
 
