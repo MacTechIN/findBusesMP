@@ -77,13 +77,15 @@ def set_coordination(coord):
 
 def station_map (xy):
     print(xy)
-    map_data = pd.DataFrame( np.random.randn(5, 1) / [20, 20] + xy, columns=['lat', 'lon'])
+    map_data =  + xy, columns=['lat', 'lon'])
 
     st.code('st.map(map_data)')
     st.subheader('정류장 위치입니다.')
     st.map(map_data)
 
-
+def arr_to_df ( arr1):
+    df = pd.DataFrame(arr1, columns=['lat', 'lon'])
+    return df
 
 # App Start from here !!
 
@@ -105,7 +107,9 @@ st.write("### 당신이 입력한 주소는 ", my_add, " 맞죠 ??")
 if st.button('### 네, 맞아요!!'):
     st.write("### 당신의 주소에서 반경 200m에 있는 정류장 목록입니다.")
     coord_xy = gl.getXY_from_json(my_add)
-    serviceKey = set_coordination(coord_xy)
+
+
+    serviceKey = set_coordination(arr_to_df(coord_xy))
 
     final_url = service_url + service_name + auth_key + serviceKey
 
