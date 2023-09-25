@@ -32,6 +32,7 @@ import json
 import streamlit as st
 from PIL import Image
 
+
 import get_gps_location as gl
 
 coord_xy = []
@@ -120,6 +121,11 @@ else:
 # 위도 경도 coord_xy [] 에서 가져옴
 # base_position에, 버스 정류장 상위 5개의 좌표를 데이터 프레임 생성 후 임시로 랜덤으로 사용  np.random.randn(5, 1) / [20, 20] + base_position
 # 컬럼명은 위도 :lat  경도 lon
+
+map_data = pd.DataFrame(
+    np.random.randn(5, 1) / [20, 20] + coord_xy ,
+    columns=['lat', 'lon'])
+
 
 # map_data 에 정류소 x,y를 추축한 df 를 생성 저장
 

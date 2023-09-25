@@ -11,7 +11,7 @@ base_position =  [37.5073423, 127.0572734]
 
 # map_data 에 정류소 x,y를 추축한 df 를 생성 저장
 map_data = pd.DataFrame(
-     base_position ,
+     np.random.randn(5, 1) / [20, 20]+base_position ,
     columns=['lat', 'lon'])
 # map data 생성 : 위치와 경도
 
