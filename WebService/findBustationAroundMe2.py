@@ -49,43 +49,41 @@ def find_station_around_me(url):
     bus_route_df = make_df(xtod(bus_info_xml))
     return bus_route_df[["stationName", "mobileNo", "stationId"]]
 
-
+#xml data를 받아 dic. type 으로 변환
 def xtod(xml_data):
     content = xml_data.content
     bus_route_dic = xmltodict.parse(content)
     return bus_route_dic
 
-
+#딕셔너리에서 원하는 컬럼만 제이슨 스트링으로변환 data frame 으로 변환
 def make_df(dic_obj):
     json_string = json.dumps(dic_obj['response']['msgBody']['busStationAroundList'])
     json_object = json.loads(json_string)
     df = pd.DataFrame(json_object)
     return df
 
-
+#수원 지역 정류장만 골라냄
 def make_station_list(df):
     is_Suwon_bus = df['regionName'] == '수원'
     station_names = df[is_Suwon_bus]['stationName']
     return station_names
 
-
+# 주소로 가지고온 위도,경도 데이터를 문자열로 변환
 def set_coordination(coord):
     x = coord[0]
     y = coord[1]
-    coordination: str = f"&x={x}&y={y}"
+    coordination = f"&x={x}&y={y}"
     return coordination
 
+#버스 정류장좌표로 맥 형성
 def station_map (xy):
     print(xy)
-    map_data =  + xy, columns=['lat', 'lon'])
+    map_data = pd.DataFrame( np.random.randn(5, 1) / [20, 20] + xy, columns=['lat', 'lon'])
 
     st.code('st.map(map_data)')
     st.subheader('정류장 위치입니다.')
     st.map(map_data)
 
-def arr_to_df ( arr1):
-    df = pd.DataFrame(arr1, columns=['lat', 'lon'])
-    return df
 
 # App Start from here !!
 
@@ -107,9 +105,7 @@ st.write("### 당신이 입력한 주소는 ", my_add, " 맞죠 ??")
 if st.button('### 네, 맞아요!!'):
     st.write("### 당신의 주소에서 반경 200m에 있는 정류장 목록입니다.")
     coord_xy = gl.getXY_from_json(my_add)
-
-
-    serviceKey = set_coordination(arr_to_df(coord_xy))
+    serviceKey = set_coordination(coord_xy)
 
     final_url = service_url + service_name + auth_key + serviceKey
 
