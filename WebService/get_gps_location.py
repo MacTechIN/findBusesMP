@@ -1,9 +1,6 @@
 import requests, json
 import pandas as pd
 
-
-
-
 kako_key = "KakaoAK b958bdf89a2ea48dc1e8c2792f0483f7"
 myAdd = "경기도 수원시 권선구 세권로108번길 10"
 tempArr = []

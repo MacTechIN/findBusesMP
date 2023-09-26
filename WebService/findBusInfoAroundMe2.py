@@ -36,7 +36,6 @@ import get_gps_location as gl
 coord_xy = []
 kakao_key = "KakaoAK b958bdf89a2ea48dc1e8c2792f0483f7"
 
-
 # REST용 url 만들기 
 service_url = "http://apis.data.go.kr/6410000/busstationservice"
 service_name = "/getBusStationAroundList"
@@ -182,8 +181,14 @@ def geather_urls():
     final_url_str = service_url + service_name + auth_key + serviceKey
     return final_url_str
 
+
+
+
+
+
 # App Start from here !!
 # Header
+
 
 # Weather Information
 weather_title = ":red[오늘] :orange[날씨 분석]:"
@@ -202,7 +207,7 @@ st.write("안녕하세요 즐거운 출근을위한 findbus앱 입니다.")
 myAdd = st.text_input('주소를 넣어주세요', '경기도 수원시 ') # 장안구 정조로 940-1
 st.write("당신이 입력한 주소는 " , myAdd,"맞죠 ?")
 #추가 수정 by Sam
-if st.button('### 네, 맞아요!!') == True :
+if st.button('### 네, 맞아요!!'):
 
 # 주소를 대입하여 위도 경도 x,y 좌표 읽어와 서비스 URL 대입함
     coord_xy = gl.getXY_from_json(myAdd)
@@ -221,12 +226,12 @@ if st.button('### 네, 맞아요!!') == True :
 
     station_map()
 
-else:
-    st.write("다시 입력 해주세요.")
+elif st.button("### 다시 입력주세요!!"):
+    st.write
 
     #만약 입력 받은 주소 기본주소와 같거나 없으면 다시 입력 받도록 해야함
-    if myAdd == "" or  myAdd == ""경기도 수원시 "":
-
+if myAdd == "" or  myAdd == ""경기도 수원시 "":
+    pass
 
 # selectbox에 넣을 정보(stationName)을 리스트로 만들어서 대입함
 stations_around_me['stationNameandId'] = stations_around_me['stationName'] + \
@@ -261,14 +266,7 @@ with st.container():
 
         st.write(f"곧 도착: {busnum}번 버스 약 {arrivetime1}분, {arrivetime2}분 전")
 
-
-
 # Map 용 데이타 생성
-
-
-
-
-
 
 adv_img = Image.open('advertise.png')
 

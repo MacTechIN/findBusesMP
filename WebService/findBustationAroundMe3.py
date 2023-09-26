@@ -33,16 +33,16 @@ from PIL import Image
 import get_gps_location as gl 
 
 
+myAdd = "경기도 수원시 권선구 세권로108번길 10"
 coord_xy = []
 kakao_key = "KakaoAK b958bdf89a2ea48dc1e8c2792f0483f7"
-
+my_add = "경기도 수원시 "
 
 # REST용 url 만들기 
 service_url = "http://apis.data.go.kr/6410000/busstationservice"
 service_name = "/getBusStationAroundList"
 encoding_key = "%2BltohkyQC0eQUMVVaH5qwUi4FxaROssy0kpwzEdkqsFqedo%2FKlvT05Ap0svSUr2xQsOHd9%2FK2pXWpnH5N%2BmTcg%3D%3D" 
 auth_key = "?serviceKey=" + encoding_key
-my_add = "경기도 수원시 "
 
 # bus_arrival_info
 encoding = "MsMlVXwTa6iJaepslzIENgYMrdmGndKRzvqoMgWnBH2K2kUV0xJB/M+dHc1zFvKBSXkP2RoS9DQQqYUNrbjAQg=="
@@ -53,19 +53,23 @@ base_url = 'http://apis.data.go.kr/6410000/'
 arrival_url = "busarrivalservice/getBusArrivalList"
 route_url = "busrouteservice/getBusRouteInfoItem"
 
+
+#%%
 # find_station_around_me
 
 def find_station_around_me(final_url):
     bus_info_xml = requests.get(final_url)
     bus_route_df = make_df(xtod(bus_info_xml))
+    #print(bus_route_df[["stationName","mobileNo","stationId"]])
+    #return make_station_list(bus_route_df["stationName"])
     return bus_route_df[["stationName","mobileNo","stationId","x","y"]]
 
-
 def xtod(xml_data):
-    content = xml_data.content
+    #contents 분리 
+    content = xml_data.content 
+    #dictionary 볂환 
     bus_route_dic = xmltodict.parse(content)
     return bus_route_dic
-
 
 def make_df(dic_obj):
     jsonString = json.dumps(dic_obj['response']['msgBody']['busStationAroundList'])
@@ -73,19 +77,16 @@ def make_df(dic_obj):
     df = pd.DataFrame(json_object)
     return df 
 
-
 def make_station_list(df):
     is_Suwon_bus = df['regionName'] == '수원'
     station_names = df[is_Suwon_bus]['stationName']
     return station_names
 
-
-def set_coordination(coord):
-    x = coord[0]
-    y = coord[1]
+def set_coordination(coord_xy):
+    x = coord_xy[0]
+    y = coord_xy[1]
     coordination = f"&x={x}&y={y}"
     return coordination
-
 
 def station_map ():
     map_data = pd.DataFrame( coord_xy ,columns=['lat', 'lon'])
@@ -94,8 +95,9 @@ def station_map ():
     st.subheader('정류장 위치입니다.')
     st.map(map_data)
 
-
+#%%
 # bus_arrival
+
 def bus_arrival_info(station_id):
     url = base_url + arrival_url
     params = {'serviceKey': encoding, 'stationId': station_id}
@@ -202,64 +204,59 @@ st.write("## 즐거운 출근을위한 findbus 앱 입니다.")
 
 st.write("안녕하세요 즐거운 출근을위한 findbus앱 입니다.")
 myAdd = st.text_input('주소를 넣어주세요', '경기도 수원시 ') # 장안구 정조로 940-1
-st.write("당신이 입력한 주소는 " , myAdd,"맞죠 ?")
+st.write("당신이 입력한 주소는" , myAdd,"맞죠 ?")
+    
+
+# 주소를 대입하여 위도 경도 x,y 좌표 읽어와 서비스 URL 대입함 
+xy_arr = gl.getXY_from_json(myAdd)
+
+serviceKey = set_coordination(xy_arr) 
+final_url = service_url+service_name+auth_key+serviceKey
+
+# map을 위해 좌표지정
+stations_around_me = find_station_around_me(final_url)
+coord_xy = stations_around_me[['x', 'y']]
+coord_xy.rename(columns={'y': 'lat', 'x': 'lon'}, inplace=True)
+coord_xy = coord_xy.astype({'lat': 'float'})
+coord_xy = coord_xy.astype({'lon': 'float'})
 
 
-#추가 수정 by Sam
-if st.button('### 네, 맞아요!!'):
-    st.write("### 당신의 주소에서 반경 200m에 있는 정류장 목록입니다.")
-    # 주소를 대입하여 위도 경도 x,y 좌표 읽어와 서비스 URL 대입함
-    coord_xy = gl.getXY_from_json(myAdd)
+# selectbox에 넣을 정보(stationName)을 리스트로 만들어서 대입함
+stations_around_me['stationNameandId'] = stations_around_me['stationName'] + \
+    "(" + stations_around_me['stationId'] + ")"
+stationNameandId_list = stations_around_me.stationNameandId.to_list()
+stationId_list = stations_around_me.stationId.to_list()
 
-    serviceKey = set_coordination(coord_xy)
-    final_url = service_url+service_name+auth_key+serviceKey
+option = st.selectbox(
+    'How would you like to be contacted?',
+    stationNameandId_list)
 
-    # map을 위해 좌표지정
-    stations_around_me = find_station_around_me(final_url)
+st.write('You selected:', option)
 
-    # Map 용 데이타 생성
-    coord_xy = stations_around_me[['x', 'y']]
-    coord_xy.rename(columns={'y': 'lat', 'x': 'lon'}, inplace=True)
-    coord_xy = coord_xy.astype({'lat': 'float'})
-    coord_xy = coord_xy.astype({'lon': 'float'})
+if st.button(option):
+    # 클릭했을때 option의 stationId가 나오게
+    index_no = stationNameandId_list.index(option)
+    station_Id = stationId_list[index_no]
+    
+    # 버스정보 조회
+    rows = parse_bus_arrival_info(bus_arrival_info(station_Id))
+    df_bus_arrival = make_df_bus_arrival(rows)
+    df_arrival_time = make_df_arrival_time(df_bus_arrival)
+    df_routeId = make_df_routeId(df_bus_arrival)
+    result = near_buses(df_routeId)
+    
+    # 뽑아온 결과 출력
+    for i in range(0, len(result)):
+        busnum = result.iloc[i, 2]
+        arrivetime1 = result.iloc[i, 0]
+        arrivetime2 = result.iloc[i, 1]
 
+        st.write(f"곧 도착: {busnum}번 버스 약 {arrivetime1}분, {arrivetime2}분 전")
+    
+else:
+    st.write("다시 입력 해주세요.")
 
-    # selectbox에 넣을 정보(stationName)을 리스트로 만들어서 대입함
-    stations_around_me['stationNameandId'] = stations_around_me['stationName'] + \
-        "(" + stations_around_me['stationId'] + ")"
-    stationNameandId_list = stations_around_me.stationNameandId.to_list()
-    stationId_list = stations_around_me.stationId.to_list()
-
-    option = st.selectbox(
-        'How would you like to be contacted?',
-        stationNameandId_list)
-
-    st.write('You selected:', option)
-
-    if st.button(option):
-        # 클릭했을때 option의 stationId가 나오게
-        index_no = stationNameandId_list.index(option)
-        station_Id = stationId_list[index_no]
-
-        # 버스정보 조회
-        rows = parse_bus_arrival_info(bus_arrival_info(station_Id))
-        df_bus_arrival = make_df_bus_arrival(rows)
-        df_arrival_time = make_df_arrival_time(df_bus_arrival)
-        df_routeId = make_df_routeId(df_bus_arrival)
-        result = near_buses(df_routeId)
-
-        # 뽑아온 결과 출력
-        for i in range(0, len(result)):
-            busnum = result.iloc[i, 2]
-            arrivetime1 = result.iloc[i, 0]
-            arrivetime2 = result.iloc[i, 1]
-
-            st.write(f"곧 도착: {busnum}번 버스 약 {arrivetime1}분, {arrivetime2}분 전")
-
-    else:
-        st.write("다시 입력 해주세요.")
-
-
+station_map()
 
 adv_img = Image.open('advertise.png')
 

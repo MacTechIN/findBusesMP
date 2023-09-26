@@ -37,7 +37,7 @@ import get_gps_location as gl
 
 coord_xy = [37.5073423, 127.0572734]
 kakao_key = "KakaoAK b958bdf89a2ea48dc1e8c2792f0483f7"
-# REST용 url 만들기 
+# REST용 url 만들기 위한 재료들 ₩
 service_url = "http://apis.data.go.kr/6410000/busstationservice"
 service_name = "/getBusStationAroundList"
 encoding_key = "%2BltohkyQC0eQUMVVaH5qwUi4FxaROssy0kpwzEdkqsFqedo%2FKlvT05Ap0svSUr2xQsOHd9%2FK2pXWpnH5N%2BmTcg%3D%3D"
