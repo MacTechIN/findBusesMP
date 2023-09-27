@@ -52,7 +52,7 @@ def next_station(route_id):
     
     return a
 
-def next_station_df(df_route_id):
+def next_station_df(df_route_id, station_Id):
     bus_stations = []
       
     for i in range(0, len(df_route_id)):
@@ -71,7 +71,7 @@ route_id = "200000010"
 a = next_station(route_id)
 
 #%%
-station_Id = "200000188"  # 이걸 바꾸면 바뀜
+station_Id = "202000003"  # 이걸 바꾸면 바뀜 233000076
 import busname as bn
 import busArrivalInfo as ai
 
@@ -79,4 +79,4 @@ d = ai.get_routeId(station_Id)
 d_1 = bn.get_bus_names(d)
 d_2 = pd.DataFrame(d_1)
 #%%
-abfg = next_station_df(d)
+abfg = next_station_df(d, station_Id)

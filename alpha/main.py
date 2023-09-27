@@ -128,10 +128,10 @@ stationNameandId_list = stations_around_me.stationNameandId.to_list()
 stationId_list = stations_around_me.stationId.to_list()
 
 option = st.selectbox(
-    'How would you like to be contacted?',
+    '아래 귀하의 반경 200m내 정류소 목록이 있습니다. 원하는 정류소를 선택하여 주세요.',
     stationNameandId_list)
 
-st.write('You selected:', option)
+st.write('출발하실 정류소는 ', option, ' 입니다.')
 
 if st.button(option):
     # 클릭했을때 option의 stationId가 나오게
@@ -143,23 +143,22 @@ if st.button(option):
     predict_time = ai.predict_arrival_time(station_Id)
     get_routeId = ai.get_routeId(station_Id)
     
-    get_routeId_list = bn.get_bus_names(get_routeId)
-    get_routeId_df = pd.DataFrame(get_routeId_list)
+    bus_names_list = bn.get_bus_names(get_routeId)
+    bus_names_df = pd.DataFrame(bus_names_list)
 
     # get_routeId_list을 뽑아와서 현재 station_id랑 비교해서 nextstation만 남김
-    get_routeId_list = ns.next_station_df(get_routeId)
+    bus_names_list = ns.next_station_df(get_routeId, station_Id)
 
     aaaa = pd.DataFrame()
-    for i in get_routeId_list:
+    for i in bus_names_list:
         a = i
         aaaa = pd.concat([aaaa, a], ignore_index=True)
     
-
-    # 필요한거만 챙김
     aaaa = aaaa['nextStation']
 
+
     # df에 concat하기
-    df = pd.concat([predict_time,get_routeId_df, aaaa], ignore_index=True, axis = 1)
+    df = pd.concat([predict_time,bus_names_df, aaaa], ignore_index=True, axis = 1)
         
     # 뽑아온 결과 출력
     for i in range(0, len(df)):
@@ -168,15 +167,13 @@ if st.button(option):
         arrivetime2 = df.iloc[i, 1]
         nextStation = df.iloc[i,3]
         
-        # print(f"곧 도착: {busnum}번 버스 약 {arrivetime1}분, {arrivetime2}분 전, 다음정거장: {nextStation}")
-        st.write(f"곧 도착: {busnum}번 버스 약 {arrivetime1}분, {arrivetime2}분 전, 다음정거장: {nextStation}")
+        # print(f"곧 도착 {busnum}번 버스 약 {arrivetime1}분, {arrivetime2}분 전, 다음정거장: {nextStation}")
+        st.write(f"### 곧 도착 {nextStation}방향 {busnum}번 버스는 {arrivetime1}분, 그 다음은{arrivetime2}분 후 도착 예정")
     
 else:
     st.write("다시 입력 해주세요.")
 
 
-    
-    
 # 광고 모형
 adv_img = Image.open('advertise.png')
 
